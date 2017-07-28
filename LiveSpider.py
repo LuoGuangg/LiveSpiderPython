@@ -1,17 +1,18 @@
+#coding=utf-8
 import requests
-
-class Spider():
-
-	def __init__(self):
-
-
-	def run(self):
-		html = requests.get(self._url)
-		print (html)
+import sys
+import io  
+from lxml import html
 
 
 if __name__ == '__main__':
+	sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
 
 	url = "https://www.douyu.com/directory/game/DOTA2"
-	spider = new Spider()
+	st = requests.get(url)
+	tree = html.fromstring(st.text)
+	buyers = tree.xpath('//li/a[@class="play-list-link"]/div[@class="mes"]/div[@class="mes-tit"]/h3[@class="ellipsis"]/text()')
+	
+	print (buyers)
+
 		
